@@ -153,7 +153,10 @@ const datapackage = {
     {
       name: 'resource-2',
       path: 'https://datastore.com/resource-2-id',
-      views: [{name: 'view-2-1', specType: 'dataExplorer'}]
+      views: [{name: 'view-2-1', specType: 'dataExplorer'}],
+      archiver: {
+        size: 1152607,
+      }
     },
     {
       name: 'resource-3',
@@ -171,6 +174,7 @@ test('Prepare data package for display', t => {
   t.true(result.resources[0].descriptionHtml.includes('<h1>Resource</h1>'))
   t.is(result.resources[0].format, 'csv')
   t.is(result.resources[0].sizeFormatted, '2MB')
+  t.is(result.resources[1].sizeFormatted, '1MB')
 })
 
 

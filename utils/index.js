@@ -40,6 +40,12 @@ module.exports.ckanToDataPackage = function (datapackage) {
     datapackage.license = license
   }
 
+  // If created field was edited in the Backend
+  // show the edited date
+  if (datapackage.created) {
+    datapackage.metadata_created = datapackage.created
+  }
+
   // Parse author and sources
   const source = {}
   if (datapackage.author) {
@@ -506,8 +512,12 @@ module.exports.processDataPackage = function (datapackage) {
     // Convert bytes into human-readable format:
     if (resource.size) {
       resource.sizeFormatted = bytes(resource.size, {decimalPlaces: 0})
+    } else if ('archiver' in resource){
+        if (resource.archiver.size){
+          resource.sizeFormatted = bytes(resource.archiver.size, { decimalPlaces: 0 })
+        }
     }
-  })
+})
 
   return datapackage
 }
